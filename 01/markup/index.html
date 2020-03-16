@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/sketchy/bootstrap.min.css">
+  <link rel="stylesheet" href="main.css">
+</head>
+<body>
+  <div class="container">
+    <h1>HW01 - Kostia Netot</h1>
+
+    <table class="table table-hover">
+      <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Category</th>
+        <th scope="col">Price</th>
+        <th scope="col">Quantity</th>
+        <th scope="col">Action</th>
+      </tr>
+      </thead>
+
+      <tr class="table-light">
+        <td>Milk</td>
+        <td>Dairy</td>
+        <td>1.5$</td>
+        <td>21</td>
+        <td><button type="button" class="btn btn-danger btn-sm">Delete</button></td>
+      </tr>
+
+      <tr class="table-light">
+        <td>Bread</td>
+        <td>Bakery</td>
+        <td>1$</td>
+        <td>14</td>
+        <td><button type="button" class="btn btn-danger btn-sm">Delete</button></td>
+      </tr>
+
+      <tr class="table-light">
+        <td>Steak</td>
+        <td>Butchery</td>
+        <td>9$</td>
+        <td>12</td>
+        <td><button type="button" class="btn btn-danger btn-sm">Delete</button></td>
+      </tr>
+
+      <tr class="table-light">
+        <td>Pasta</td>
+        <td>Grocery</td>
+        <td>0.8$</td>
+        <td>33</td>
+        <td><button type="button" class="btn btn-danger btn-sm">Delete</button></td>
+      </tr>
+
+    </table>
+
+    <form class="form-inline">
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Name" id="itemName">
+      </div>
+
+      <div class="form-group">
+        <select class="custom-select">
+          <option selected="">Select category</option>
+          <option value="1">Dairy</option>
+          <option value="2">Bakery</option>
+          <option value="3">Butchery</option>
+          <option value="4">Grocery</option>
+        </select>
+      </div>
+
+      <div class="form-group row">
+        <input type="text" class="form-control" placeholder="Price" id="itemPrice">
+      </div>
+
+      <div class="form-group row">
+        <input type="number" class="form-control" placeholder="Quantity" id="itemQuantity">
+      </div>
+
+      <div class="form-group row">
+        <button type="button" class="btn btn-success">Add item</button>
+      </div>
+
+    </form>
+
+  </div>
+
+</body>
+</html>

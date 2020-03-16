@@ -1,0 +1,16 @@
+h1 {
+   margin-bottom: 46px;
+   text-align: center;
+ }
+
+table {
+  margin-bottom: 30px;
+}
+
+.form-inline {
+  justify-content: center;
+}
+
+.form-group {
+  margin: 0 2px;
+}
