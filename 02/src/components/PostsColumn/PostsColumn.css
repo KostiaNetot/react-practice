@@ -1,0 +1,16 @@
+.comments-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-top: 20px;
+}
+
+.post-body {
+  padding-left: 15px;
+}
+
+.comments-wrapper small {
+  width: 60%;
+  margin-bottom: 10px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+}
