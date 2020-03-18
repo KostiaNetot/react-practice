@@ -2,49 +2,63 @@ import React, { Component } from "react";
 import './PostItem.css';
 
 import ExtendedPostItem from "../ExtendedPostItem/ExtendedPostItem";
-import BlogService from "../../services/BlogService";
+// import BlogService from "../../services/BlogService";
 
 export default class PostItem extends Component {
-  blogService = new BlogService();
+  // blogService = new BlogService();
 
   state = {
     extended: false,
-    // clicked: false,
-    comments: []
+    comments: null,
   };
 
-  getPostsComments() {
-    this.blogService
-      .getComments(1)
-      .then(comments => {
-        console.log(comments);
-      });
-  }
+  // getPostsComments(id) {
+  //   this.blogService
+  //     .getComments(id)
+  //     .then(comments => {
+  //       this.setState({
+  //         comments: comments
+  //       });
+  //     });
+  // }
 
   onItemClick = (e) => {
     e.preventDefault();
+    const { id } = this.props.post;
     this.setState(prevState => ({
       extended: !prevState.extended
     }));
+
+    // if (!this.state.extended) {
+    //   this.getPostsComments(id);
+    // }
   };
 
-  render() {
+  // componentDidUpdate(prevProps, prevState, snapshot) {
+  //   if (this.state.extended) {
+  //     const { id } = this.props.post;
+  //     this.getPostsComments(id);
+  //   }
+  // }
 
-    const { title } = this.props.post;
+  render() {
+    const { id, title } = this.props.post;
     const { extended } = this.state;
-    console.log(this.props.post);
 
     if (extended) {
-
       return <ExtendedPostItem
+                // comments={this.state.comments}
                 post={ this.props.post }
-                onItemClick={ this.onItemClick } />
+                onItemClick={ this.onItemClick }
+      />
     }
 
     return (
-      <a onClick={ this.onItemClick } href="#" className="list-group-item list-group-item-action flex-column align-items-start">
+      <a
+        onClick={ this.onItemClick }
+         href="#" className="list-group-item list-group-item-action flex-column align-items-start">
         <div className="d-flex w-100 justify-content-between">
-          <h5 className="mb-1">{ title }</h5>
+          <h5 className="mb-1">{ `${id}: ${title}` }</h5>
         </div>
       </a>
     );

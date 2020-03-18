@@ -14,8 +14,7 @@ export default class PostsColumn extends Component {
     loading: true
   };
 
-  constructor() {
-    super();
+  componentDidMount() {
     this.getPostsTitles();
   }
 
@@ -34,26 +33,21 @@ export default class PostsColumn extends Component {
     const { posts } = this.state;
       return posts.map((post, index) => {
         return <PostItem
-                  key={index}
+                  key={post.id}
                   post={post} />
       });
   }
 
   render() {
     const { loading } = this.state;
-
-    if (loading) {
-      return <div className="col-7 posts-list">
-               <Loader />
-             </div>
-    }
+    const loader = loading ? <Loader /> : null;
+    const content = !loading ? this.renderPostItems() : null;
 
     return(
       <div className="col-7 posts-list">
         <div className="list-group">
-
-          { this.renderPostItems() }
-
+          { loader }
+          { content }
         </div>
       </div>
     )
