@@ -34,6 +34,7 @@ export default class PostsColumn extends Component {
       return posts.map((post, index) => {
         return <PostItem
                   key={post.id}
+                  userId={post.userId}
                   post={post} />
       });
   }

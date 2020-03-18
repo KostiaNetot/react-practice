@@ -15,5 +15,10 @@ export default class BlogService {
     return res;
   }
 
+  async getUser(id) {
+    const res = await this.getData(`https://jsonplaceholder.typicode.com/users/${id}`);
+    return res;
+  }
+
 }
 

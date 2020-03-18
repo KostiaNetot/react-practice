@@ -33,7 +33,8 @@ export default class ExtendedPostItem extends Component {
   renderComments = (arr) => {
     return arr.map(comment => {
       return <small
-               key={comment.id} >{comment.body}</small>
+               key={comment.id} >
+                {`Comment ${comment.id}: ${comment.body}`}<br/>{ comment.email }</small>
     });
   };
 
