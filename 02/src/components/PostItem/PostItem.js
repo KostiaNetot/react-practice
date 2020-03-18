@@ -28,18 +28,7 @@ export default class PostItem extends Component {
     this.setState(prevState => ({
       extended: !prevState.extended
     }));
-
-    // if (!this.state.extended) {
-    //   this.getPostsComments(id);
-    // }
   };
-
-  // componentDidUpdate(prevProps, prevState, snapshot) {
-  //   if (this.state.extended) {
-  //     const { id } = this.props.post;
-  //     this.getPostsComments(id);
-  //   }
-  // }
 
   render() {
     const { id, title } = this.props.post;

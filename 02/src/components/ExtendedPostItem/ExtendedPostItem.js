@@ -2,28 +2,47 @@ import React, { Component } from "react";
 import './ExtendedPostItem.css';
 
 import BlogService from "../../services/BlogService";
+import Loader from "../Loader/Loader";
 
 
 export default class ExtendedPostItem extends Component {
+
+  state = {
+    commentsLoading: true,
+    comments: null
+  };
+
   blogService = new BlogService();
 
   componentDidMount() {
-    console.log(this.props);
+    const { id } = this.props.post;
+    this.getPostsComments(id);
   }
 
-  // componentDidUpdate(prevProps) {
-  //   if (this.props.comments !== prevProps.comments) {
-  //     const { comments } = this.props;
-  //     this.renderComments(comments);
-  //   }
-  // }
+  getPostsComments(id) {
+    this.blogService
+      .getComments(id)
+      .then(comments => {
+        this.setState({
+          commentsLoading: false,
+          comments: comments
+        });
+      });
+  }
 
-  // renderComments = (arr) => {
-  //
-  // };
+  renderComments = (arr) => {
+    return arr.map(comment => {
+      return <small
+               key={comment.id} >{comment.body}</small>
+    });
+  };
 
   render() {
     const { post, onItemClick } = this.props;
+    const { commentsLoading, comments } = this.state;
+
+    const loader = commentsLoading ? <Loader/> : null;
+    const commentBody = !commentsLoading ? this.renderComments(comments) : null;
 
     return(
       <a onClick={ onItemClick } href="#" className="list-group-item list-group-item-action flex-column align-items-start">
@@ -32,8 +51,8 @@ export default class ExtendedPostItem extends Component {
         </div>
         <p className="post-body mb-1">{ post.body }</p>
         <div className="comments-wrapper">
-          <small>laudantium enim quasi est quidem magnam voluptate ipsam eos\ntempora quo necessitatibus\ndolor quam
-            autem quasi\nreiciendis et nam sapiente accusantium</small>
+          { loader }
+          { commentBody }
         </div>
       </a>
     )
