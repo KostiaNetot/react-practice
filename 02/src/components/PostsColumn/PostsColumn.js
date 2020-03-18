@@ -12,38 +12,42 @@ class PostsColumn extends Component {
     posts: null
   };
 
-  // constructor() {
-  //   super();
+  constructor() {
+    super();
+    this.getPostsTitles();
+  }
+
+  // componentDidMount() {
   //   this.getPostsTitles();
   // }
 
-  componentDidMount() {
-    this.getPostsTitles();
-    // console.log('DidMount');
-    // console.log(this.state);
-  }
-
   getPostsTitles() {
-    console.log('getPostsTitles');
     this.blogService
       .getAllPosts()
       .then(data => {
-        console.log(data);
         this.setState({
           posts: data
         });
       });
-    console.log(this.state);
+  }
+
+  renderPostItems(){
+    const { posts } = this.state;
+    console.log(posts);
+      return <PostItem />
   }
 
   render() {
+    // const {posts} = this.state;
+    // console.log(posts);
+
     return(
 
       <div className="col-7 posts-list">
 
         <div className="list-group">
 
-          <PostItem />
+          { this.renderPostItems() }
 
         </div>
       </div>
