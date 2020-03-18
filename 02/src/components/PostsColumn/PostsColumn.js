@@ -3,13 +3,15 @@ import './PostsColumn.css';
 
 import PostItem from "../PostItem/PostItem";
 import BlogService from "../../services/BlogService";
+import Loader from "../Loader/Loader";
 
-class PostsColumn extends Component {
+export default class PostsColumn extends Component {
 
   blogService = new BlogService();
 
   state = {
-    posts: null
+    posts: [],
+    loading: true
   };
 
   constructor() {
@@ -17,44 +19,44 @@ class PostsColumn extends Component {
     this.getPostsTitles();
   }
 
-  // componentDidMount() {
-  //   this.getPostsTitles();
-  // }
-
   getPostsTitles() {
     this.blogService
       .getAllPosts()
       .then(data => {
         this.setState({
-          posts: data
+          posts: data,
+          loading: false
         });
       });
   }
 
-  renderPostItems(){
+  renderPostItems() {
     const { posts } = this.state;
-    console.log(posts);
-      return <PostItem />
+      return posts.map((post, index) => {
+        return <PostItem
+                  key={index}
+                  post={post} />
+      });
   }
 
   render() {
-    // const {posts} = this.state;
-    // console.log(posts);
+    const { loading } = this.state;
+
+    if (loading) {
+      return <div className="col-7 posts-list">
+               <Loader />
+             </div>
+    }
 
     return(
-
       <div className="col-7 posts-list">
-
         <div className="list-group">
 
           { this.renderPostItems() }
 
         </div>
       </div>
-
-
     )
   }
 }
 
-export default PostsColumn;
