@@ -31,7 +31,6 @@ export default class AuthorInfo extends Component {
 
     this.blogService.getAlbums(userId)
       .then(albums => {
-        console.log(albums);
         this.setState({
           albums: albums,
           albumsLoading: false
@@ -48,6 +47,13 @@ export default class AuthorInfo extends Component {
     if (prevProps.userId !== this.props.userId) {
       this.getPostsAuthor();
       this.getAuthorAlbums();
+    }
+
+    if (!this.state.loading && prevProps.userId !== this.props.userId) {
+      console.log('this.state.loading');
+      this.setState({
+        loading: false
+      });
     }
   };
 
