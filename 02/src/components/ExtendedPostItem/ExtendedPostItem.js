@@ -1,8 +1,10 @@
 import React, { Component } from "react";
+import PropTypes from 'prop-types';
 import './ExtendedPostItem.css';
 
 import BlogService from "../../services/BlogService";
 import Loader from "../Loader/Loader";
+import PostItem from "../PostItem/PostItem";
 
 
 export default class ExtendedPostItem extends Component {
@@ -66,3 +68,9 @@ export default class ExtendedPostItem extends Component {
     )
   }
 }
+
+ExtendedPostItem.propTypes = {
+  onItemClick: PropTypes.func,
+  post: PropTypes.object
+};
+

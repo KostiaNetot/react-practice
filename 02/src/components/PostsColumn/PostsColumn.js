@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from 'prop-types';
 import './PostsColumn.css';
 
 import PostItem from "../PostItem/PostItem";
@@ -31,7 +32,7 @@ export default class PostsColumn extends Component {
 
   renderPostItems() {
     const { posts } = this.state;
-      return posts.map((post, index) => {
+      return posts.map((post) => {
         return <PostItem
                   onItemSelected={() => this.props.onItemSelected(post.userId)}
                   key={post.id}
@@ -56,3 +57,6 @@ export default class PostsColumn extends Component {
   }
 }
 
+PostsColumn.propTypes = {
+  onItemSelected: PropTypes.func
+};

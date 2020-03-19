@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from 'prop-types';
 
 import AuthorInfo from "../AuthorInfo/AuthorInfo";
 
@@ -28,3 +29,7 @@ export default class AuthorColumn extends Component {
     )
   }
 }
+
+AuthorColumn.propTypes = {
+  userId: PropTypes.number
+};

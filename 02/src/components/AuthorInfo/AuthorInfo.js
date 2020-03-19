@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import PropTypes from 'prop-types';
+
 import './AuthorInfo.css';
 
 import BlogService from "../../services/BlogService";
@@ -97,10 +99,16 @@ export default class AuthorInfo extends Component {
     return(
       <div className="col-5 author-info">
         <div className="card">
-          {loader}
-          {content}
+
+          { loader }
+          { content }
+
         </div>
       </div>
     )
   }
 }
+
+AuthorInfo.propTypes = {
+  userId: PropTypes.number
+};

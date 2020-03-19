@@ -1,7 +1,9 @@
 import React, { Component } from "react";
+import PropTypes from 'prop-types';
 import './PostItem.css';
 
 import ExtendedPostItem from "../ExtendedPostItem/ExtendedPostItem";
+import PostsColumn from "../PostsColumn/PostsColumn";
 
 export default class PostItem extends Component {
 
@@ -42,3 +44,10 @@ export default class PostItem extends Component {
     );
   }
 }
+
+PostItem.propTypes = {
+  onItemSelected: PropTypes.func,
+  userId: PropTypes.number,
+  post: PropTypes.object
+};
+
