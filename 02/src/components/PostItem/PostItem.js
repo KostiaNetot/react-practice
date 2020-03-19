@@ -15,6 +15,9 @@ export default class PostItem extends Component {
     this.setState(prevState => ({
       extended: !prevState.extended
     }));
+    if (!this.state.extended) {
+      this.props.onItemSelected();
+    }
   };
 
   render() {
@@ -30,6 +33,7 @@ export default class PostItem extends Component {
 
     return (
       <a
+        // onClick={ this.props.checkEvent }
         onClick={ this.onItemClick }
          href="#" className="list-group-item list-group-item-action flex-column align-items-start">
         <div className="d-flex w-100 justify-content-between">

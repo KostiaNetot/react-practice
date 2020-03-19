@@ -11,8 +11,13 @@ export default class AuthorColumn extends Component {
 
   blogService = new BlogService();
 
-  getPostsAuthor (id) {
-    this.blogService.getUser(id)
+  getPostsAuthor () {
+    const { userId } = this.props;
+    if (!userId) {
+      return;
+    }
+
+    this.blogService.getUser(userId)
       .then(user => {
         this.setState({
           loading: false,
@@ -21,14 +26,30 @@ export default class AuthorColumn extends Component {
       });
   }
 
-  componentDidMount() {
-    const { userId } = this.props;
-    this.getPostsAuthor(userId);
+  // componentDidMount() {
+  //   this.getPostsAuthor();
+  // }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (prevProps.userId !== this.props.userId) {
+      console.log(this.props);
+      this.getPostsAuthor();
+    }
   }
 
   render() {
-      const { user } = this.state;
-      const { name, address } = user;
+    const { user } = this.state;
+    const { name, email, website } = user;
+
+    if (!user) {
+      return <div className="col-5 author-info">
+               <div className="card">
+                 <div className="card-body">
+                   <h4 className="card-title">Check post from the list</h4>
+                 </div>
+               </div>
+             </div>
+    }
 
     return(
       <div className="col-5 author-info">
@@ -43,8 +64,8 @@ export default class AuthorColumn extends Component {
               <li>eaque aut omnis a</li>
               <li>natus impedit quibusdam illo est</li>
             </ul>
-            <a href="#" target="_blank" className="card-link">email: Sincere@april.biz</a>
-            <a href="#" target="_blank" className="card-link">website: "hildegard.org</a>
+            <a href="#" target="_blank" className="card-link">email: { email }</a>
+            <a href="#" target="_blank" className="card-link">website: { website }</a>
           </div>
         </div>
 

@@ -33,6 +33,8 @@ export default class PostsColumn extends Component {
     const { posts } = this.state;
       return posts.map((post, index) => {
         return <PostItem
+                  onItemSelected={() => this.props.onItemSelected(post.userId)}
+                  // checkEvent={this.props.checkEvent}
                   key={post.id}
                   userId={post.userId}
                   post={post} />

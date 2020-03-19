@@ -8,7 +8,15 @@ import AuthorColumn from "./components/AuthorColumn/AuthorColumn";
 class App extends Component {
 
   state = {
-    selectedUsersId: 2
+    selectedUsersId: null
+  };
+
+  onItemSelected = (id) => {
+    console.log('check event...');
+    console.log(id);
+    this.setState({
+      selectedUsersId: id
+    });
   };
 
   render() {
@@ -17,8 +25,9 @@ class App extends Component {
         <Header />
         <div className="container">
           <div className="row">
-            <PostsColumn />
-            <AuthorColumn userId={this.state.selectedUsersId} />
+            <PostsColumn onItemSelected={this.onItemSelected} />
+            <AuthorColumn
+              userId={this.state.selectedUsersId} />
           </div>
         </div>
       </React.Fragment>
