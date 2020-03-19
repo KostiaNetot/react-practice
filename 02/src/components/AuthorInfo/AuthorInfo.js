@@ -50,7 +50,6 @@ export default class AuthorInfo extends Component {
     }
 
     if (!this.state.loading && prevProps.userId !== this.props.userId) {
-      console.log('this.state.loading');
       this.setState({
         loading: false
       });
