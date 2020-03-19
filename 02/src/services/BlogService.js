@@ -20,5 +20,10 @@ export default class BlogService {
     return res;
   }
 
+  async getAlbums(userId) {
+    const res = await this.getData(`https://jsonplaceholder.typicode.com/users/${userId}/albums`);
+    return res;
+  }
+
 }
 

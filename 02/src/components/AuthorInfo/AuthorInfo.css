@@ -1,0 +1,6 @@
+.card {
+  position: fixed;
+  width: 350px;
+  top: 50%;
+  transform: translateY(-50%);
+}

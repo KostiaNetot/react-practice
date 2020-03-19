@@ -12,8 +12,6 @@ class App extends Component {
   };
 
   onItemSelected = (id) => {
-    console.log('check event...');
-    console.log(id);
     this.setState({
       selectedUsersId: id
     });

@@ -6,28 +6,35 @@ import Loader from "../Loader/Loader";
 
 
 export default class ExtendedPostItem extends Component {
+  _isMounted = false;
+  blogService = new BlogService();
 
   state = {
     commentsLoading: true,
     comments: null
   };
 
-  blogService = new BlogService();
-
   componentDidMount() {
+    this._isMounted = true;
     const { id } = this.props.post;
-    this.getPostsComments(id);
+      this.getPostsComments(id);
   }
 
   getPostsComments(id) {
     this.blogService
       .getComments(id)
       .then(comments => {
-        this.setState({
-          commentsLoading: false,
-          comments: comments
-        });
+        if (this._isMounted) {
+          this.setState({
+            commentsLoading: false,
+            comments: comments
+          });
+        }
       });
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   renderComments = (arr) => {
