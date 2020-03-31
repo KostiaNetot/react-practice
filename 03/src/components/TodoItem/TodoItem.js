@@ -1,18 +1,24 @@
 import React from "react";
-import {Checkbox, Divider, ListItem, ListItemText, Button} from "@material-ui/core";
+import {FormControlLabel, Checkbox, Divider, ListItem, ListItemText, Button} from "@material-ui/core";
+import { makeStyles } from '@material-ui/styles';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 
-export default function TodoItem(props) {
+const useStyles = makeStyles({
+  root: {
+    justifyContent: 'space-between',
+  },
+});
 
+export default function TodoItem(props) {
+  const styles = useStyles();
   const { todo } = props;
 
   return(
     <React.Fragment>
-      <ListItem button>
-        <Checkbox
-          color="primary"
-          inputProps={{ 'aria-label': 'secondary checkbox' }} />
-        <ListItemText primary={todo.title} />
+      <ListItem button justifyContent="space-between" >
+        <ListItemText
+          primary={todo.title}
+          onClick={} />
         <Button variant="outlined" color="secondary">
           <DeleteOutlineIcon/>
         </Button>

@@ -5,7 +5,7 @@ import useData from "../../hooks/useData";
 import TodoItem from "../TodoItem/TodoItem";
 import InfiniteScroll from 'react-infinite-scroller';
 
-const TODOS_PER_PAGE = 6;
+const TODOS_PER_PAGE = 10;
 
 function TodoList() {
   const [ todos, isFetching ] = useData('/todos', []);
@@ -26,7 +26,7 @@ function TodoList() {
             hasMore={todos.length > displayedTodos}
             loader={<div className="loader" key={0}>Loading ...</div>}
           >
-            {todos.map(todo => <TodoItem key={todo.id} todo={todo} />)}
+            {todos.slice(0, displayedTodos).map(todo => <TodoItem key={todo.id} todo={todo} />)}
           </InfiniteScroll>
 
         </List>
