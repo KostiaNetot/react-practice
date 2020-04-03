@@ -1,0 +1,12 @@
+.active-nav {
+  color: red !important;
+}
+
+.page {
+  position: relative;
+}
+
+.comments-wrapper {
+  display: flex;
+  flex-direction: column;
+}

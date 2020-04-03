@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import { Button, Container} from "@material-ui/core";
 
-import TodoList from "./components/TodoList/TodoList";
+import TodoList from "./components/TodoList";
 
 function App() {
   return (
