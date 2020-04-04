@@ -12,15 +12,13 @@ const PostItem = ({ post }) => {
   return (
     <Item>
       <Item.Content>
-        <Item.Header as='a'>{post.title}</Item.Header><Item.Meta>Description</Item.Meta>
+        <Item.Header>{post.title}</Item.Header>
         <Item.Description>
           {post.body}
         </Item.Description>
-        {user &&
         <Item.Extra>
-          <Link to={`/users/${user.id}`}>Go to Author</Link>
+          <Link to={`/users/${post.userId}`}>Go to {user ? user.name : 'Author'} page</Link>
         </Item.Extra>
-        }
         <Item.Extra onClick={() => setCommentsDiplaying(!hasCommentsDisplayed)}>Comments</Item.Extra>
         {hasCommentsDisplayed &&
         <Item.Extra>
