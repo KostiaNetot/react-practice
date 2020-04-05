@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React  from 'react';
 import { useParams } from 'react-router-dom';
-import {Container, Header, Grid, Card, Image, Loader, Dimmer} from "semantic-ui-react";
+import {Container, Header, Image, Loader, Dimmer} from "semantic-ui-react";
 import useData from "../hooks/useData";
 
 const AlbumPage = ({ userName }) => {
@@ -19,14 +19,14 @@ const AlbumPage = ({ userName }) => {
   }
 
   return (
-    <Container className='page'>
+    <Container className='page-inner'>
       <Header as='h2'>{album.title.toUpperCase()}</Header>
       <p>{userName}</p>
-      {!pictures && <Loader/>}
-      {pictures &&
+      { !pictures ? <Loader/> : null}
+      { pictures ?
       <Image.Group size='small'>
         { pictures.map(pic => <Image key={pic.id} src={pic.thumbnailUrl} />) }
-      </Image.Group>
+      </Image.Group> : null
       }
     </Container>
   );

@@ -9,7 +9,7 @@ const UserPage = () => {
   const { userId } = useParams();
   const { path, url } = useRouteMatch();
   const [ user, isFetching ] = useData(`/users/${userId}`, null);
-  const [ albums, isAlbumsFetching ] = useData(`/users/${userId}/albums`, []);
+  const [ albums ] = useData(`/users/${userId}/albums`, []);
 
   if (isFetching || !user) {
     return (

@@ -1,14 +1,15 @@
 import React from 'react';
-import { Header, Icon, Image } from "semantic-ui-react";
+import { Header, Icon, Container } from "semantic-ui-react";
+// import AnimatedWrapper from "./AnimatedWrapper";
 
 const HomePage = () => {
   return (
-    <div>
+    <Container className='page'>
       <Header as='h2' icon textAlign='center'>
         <Header.Content className='home-header'>Homepage</Header.Content>
         <Icon name='home' circular />
       </Header>
-    </div>
+    </Container>
   );
 };
 

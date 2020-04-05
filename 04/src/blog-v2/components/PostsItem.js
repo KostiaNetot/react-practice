@@ -7,7 +7,7 @@ import useData from "../hooks/useData";
 
 const PostItem = ({ post }) => {
   const [ hasCommentsDisplayed, setCommentsDiplaying ] = useState(false);
-  const [ user, isFetching ] = useData(`/users/${post.userId}`, null, hasCommentsDisplayed);
+  const [ user ] = useData(`/users/${post.userId}`, null, hasCommentsDisplayed);
 
   return (
     <Item>

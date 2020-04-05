@@ -2,6 +2,7 @@ import React from 'react';
 import { Container, Dimmer, Loader, Item } from "semantic-ui-react";
 import useData from "../hooks/useData";
 import PostItem from "../components/PostsItem";
+// import AnimatedWrapper from "./AnimatedWrapper";
 
 const PostsPage = () => {
   const [posts, isFetching] = useData('/posts', []);
