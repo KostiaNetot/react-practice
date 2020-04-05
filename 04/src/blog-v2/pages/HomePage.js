@@ -1,6 +1,5 @@
 import React from 'react';
 import { Header, Icon, Container } from "semantic-ui-react";
-// import AnimatedWrapper from "./AnimatedWrapper";
 
 const HomePage = () => {
   return (

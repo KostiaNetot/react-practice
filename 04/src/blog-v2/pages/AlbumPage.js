@@ -4,7 +4,7 @@ import {Container, Header, Image, Loader, Dimmer} from "semantic-ui-react";
 import useData from "../hooks/useData";
 
 const AlbumPage = ({ userName }) => {
-  const { userId, albumId } = useParams();
+  const { albumId } = useParams();
   const [ album, isFetching ] = useData(`/albums/${albumId}`, null);
   const [ pictures ] = useData(`/albums/${albumId}/photos`, null);
 

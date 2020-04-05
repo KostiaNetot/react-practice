@@ -1,7 +1,6 @@
 import React from 'react';
 import { Container, Dimmer, Loader, Item, List } from "semantic-ui-react";
 import useData from "../hooks/useData";
-// import AnimatedWrapper from "./AnimatedWrapper";
 
 import AlbumsItem from "../components/AlbumsItem";
 
