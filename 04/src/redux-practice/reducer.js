@@ -1,5 +1,5 @@
 
-const reducer = (state = 0, action) => {
+const reducer = (state = 11, action) => {
 
   switch (action.type) {
     case 'RND':
