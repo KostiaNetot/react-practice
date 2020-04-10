@@ -1,4 +1,4 @@
-import { GOODS_LOADED } from "../reducers";
+import { GOODS_LOADED, GOODS_REQUESTED, GOODS_ERROR } from "../reducers";
 
 
 const goodsLoaded = (newGoods) => {
@@ -8,6 +8,21 @@ const goodsLoaded = (newGoods) => {
   }
 };
 
+const goodsRequested = () => {
+  return {
+    type: GOODS_REQUESTED
+  }
+};
+
+const goodsError = (error) => {
+  return {
+    type: GOODS_ERROR,
+    payload: error
+  }
+};
+
 export {
-  goodsLoaded
+  goodsLoaded,
+  goodsRequested,
+  goodsError
 }

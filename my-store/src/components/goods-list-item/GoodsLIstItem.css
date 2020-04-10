@@ -1,0 +1,21 @@
+#root .item-card {
+  width: calc(25% - 30px);
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+#root .item-card:first-child {
+  margin-top: 1em;
+}
+
+#root .item-card:last-child {
+  margin-bottom: 1em;
+}
+
+#root .item-card .btn-wrapper {
+  text-align: center;
+}
+
+#root .item-card .card-btn {
+  margin-top: 10px;
+}

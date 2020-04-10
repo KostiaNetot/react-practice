@@ -1,0 +1,18 @@
+#root .app-header {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 14px;
+}
+
+#root .cart-info {
+  display: flex;
+}
+
+#root .cart-info .quantity,
+#root .cart-info .total {
+  font-size: 1.2rem;
+}
+
+#root .cart-info > * {
+  margin: 0 6px;
+}

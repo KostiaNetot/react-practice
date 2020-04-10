@@ -1,0 +1,4 @@
+#root .items-wrapper {
+  display: flex;
+  justify-content: center;
+}

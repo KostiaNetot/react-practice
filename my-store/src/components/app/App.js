@@ -1,43 +1,39 @@
 import React from 'react';
 import './App.css';
-import { WithStoreService } from '../hoc';
+import { Route, Switch } from 'react-router-dom';
+import { Container } from "semantic-ui-react";
 
-import { Container, Header, Card, Image, Icon, Button } from "semantic-ui-react";
+import {HomePage, GoodsPage, CartPage} from "../pages";
+import AppHeader from "../app-header";
+import Navigation from "../navigation";
+import NotFoundPage from "../404";
 
-const App = ({ storeservice }) => {
-  const goods = storeservice.getGoods();
-  console.log(goods);
-
+const App = () => {
   return (
     <Container>
-      <Header as='h1' className='store-header' block>My Store</Header>
+      <AppHeader/>
+      <Navigation/>
+      <Switch>
+        <Route
+          exact path='/'
+          component={HomePage}
+        />
+        <Route
+          path='/goods'
+          component={GoodsPage}
+        />
+        <Route
+          path='/cart'
+          component={CartPage}
+        />
+        <Route
+          path='*'
+          component={NotFoundPage}
+        />
 
-      {
-        goods.map(item => {
-          return(
-            <Card key={item.id}>
-              <Image size='small' src={item.img} wrapped ui={false} />
-              <Card.Content>
-                <Card.Header>{item.title}</Card.Header>
-                <Card.Meta>
-                  <span className='date'>Price:<b className='font-black'>{item.price}$</b></span>
-                </Card.Meta>
-                <Card.Description>{item.description}</Card.Description>
-              </Card.Content>
-              <Card.Content extra>
-                <Button animated='vertical'>
-                  <Button.Content visible>Add to cart</Button.Content>
-                  <Button.Content hidden>
-                    <Icon name='shop' />
-                  </Button.Content>
-                </Button>
-              </Card.Content>
-            </Card>
-          )
-        })
-      }
+      </Switch>
     </Container>
   );
 };
 
-export default WithStoreService()(App);
+export default App;
