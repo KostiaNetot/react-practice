@@ -1,8 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import './CartTable.css'
 import {Table, Image, Header, Button, Icon} from "semantic-ui-react";
 
-const CartTable = () => {
+const CartTable = ({ items, total, onIncrease, onDecrease, onDelete }) => {
+
   return (
     <div className='table-wrapper'>
 
@@ -17,94 +19,41 @@ const CartTable = () => {
         </Table.Header>
 
         <Table.Body>
-          <Table.Row>
-            <Table.Cell>
-              <Header as='h4' image>
-                <Image src='https://cdn-prod.medicalnewstoday.com/content/images/hero/325/325042/325042_1100.jpg' rounded size='mini' />
-                <Header.Content>
-                  Lena
-                  <Header.Subheader>Human Resources</Header.Subheader>
-                </Header.Content>
-              </Header>
-            </Table.Cell>
-            <Table.Cell>
-              <Header as='h4'><Header.Content>2</Header.Content></Header>
-            </Table.Cell>
-            <Table.Cell>
-              <Header as='h4'><Header.Content>5$</Header.Content></Header>
-            </Table.Cell>
-            <Table.Cell>
-              <Button icon>
-                <Icon name='trash alternate outline' />
-              </Button>
-            </Table.Cell>
-          </Table.Row>
-          <Table.Row>
-            <Table.Cell>
-              <Header as='h4' image>
-                <Image src='https://cdn-prod.medicalnewstoday.com/content/images/hero/325/325042/325042_1100.jpg' rounded size='mini' />
-                <Header.Content>
-                  Matthew
-                  <Header.Subheader>Fabric Design</Header.Subheader>
-                </Header.Content>
-              </Header>
-            </Table.Cell>
-            <Table.Cell>
-              <Header as='h4'><Header.Content>2</Header.Content></Header>
-            </Table.Cell>
-            <Table.Cell>
-              <Header as='h4'><Header.Content>5$</Header.Content></Header>
-            </Table.Cell>
-            <Table.Cell>
-              <Button icon>
-                <Icon name='trash alternate outline' />
-              </Button>
-            </Table.Cell>
-          </Table.Row>
-          <Table.Row>
-            <Table.Cell>
-              <Header as='h4' image>
-                <Image src='https://cdn-prod.medicalnewstoday.com/content/images/hero/325/325042/325042_1100.jpg' rounded size='mini' />
-                <Header.Content>
-                  Lindsay
-                  <Header.Subheader>Entertainment</Header.Subheader>
-                </Header.Content>
-              </Header>
-            </Table.Cell>
-            <Table.Cell>
-              <Header as='h4'><Header.Content>2</Header.Content></Header>
-            </Table.Cell>
-            <Table.Cell>
-              <Header as='h4'><Header.Content>5$</Header.Content></Header>
-            </Table.Cell>
-            <Table.Cell>
-              <Button icon>
-                <Icon name='trash alternate outline' />
-              </Button>
-            </Table.Cell>
-          </Table.Row>
-          <Table.Row>
-            <Table.Cell>
-              <Header as='h4' image>
-                <Image src='https://cdn-prod.medicalnewstoday.com/content/images/hero/325/325042/325042_1100.jpg' rounded size='mini' />
-                <Header.Content>
-                  Mark
-                  <Header.Subheader>Executive</Header.Subheader>
-                </Header.Content>
-              </Header>
-            </Table.Cell>
-            <Table.Cell>
-              <Header as='h4'><Header.Content>2</Header.Content></Header>
-            </Table.Cell>
-            <Table.Cell>
-              <Header as='h4'><Header.Content>5$</Header.Content></Header>
-            </Table.Cell>
-            <Table.Cell>
-              <Button icon>
-                <Icon name='trash alternate outline' />
-              </Button>
-            </Table.Cell>
-          </Table.Row>
+          {
+            items.map(item => {
+              console.log(item);
+              return (
+                <Table.Row key={item.id}>
+                  <Table.Cell>
+                    <Header as='h4' image>
+                      <Image src={item.img} />
+                      <Header.Content>
+                        {item.title}
+                        {/*<Header.Subheader>Human Resources</Header.Subheader>*/}
+                      </Header.Content>
+                    </Header>
+                  </Table.Cell>
+                  <Table.Cell>
+                    <Header as='h4'><Header.Content>1</Header.Content></Header>
+                  </Table.Cell>
+                  <Table.Cell>
+                    <Header as='h4'><Header.Content>{item.total}$</Header.Content></Header>
+                  </Table.Cell>
+                  <Table.Cell>
+                    <Button onClick={onDecrease} color='yellow' icon>
+                      <Icon name='minus' />
+                    </Button>
+                    <Button onClick={onIncrease} color='green' icon>
+                      <Icon name='plus' />
+                    </Button>
+                    <Button onClick={onDelete} color='orange' icon>
+                      <Icon name='trash alternate outline' />
+                    </Button>
+                  </Table.Cell>
+                </Table.Row>
+              )
+            })
+          }
         </Table.Body>
 
         <Table.Footer fullWidth>
@@ -113,10 +62,10 @@ const CartTable = () => {
               <Header as='h4'><Header.Content>Total:</Header.Content></Header>
             </Table.Cell>
             <Table.Cell>
-              <Header as='h4'><Header.Content>8</Header.Content></Header>
+              <Header as='h4'><Header.Content>{items.length}</Header.Content></Header>
             </Table.Cell>
             <Table.Cell>
-              <Header as='h4'><Header.Content>20$</Header.Content></Header>
+              <Header as='h4'><Header.Content>{total}$</Header.Content></Header>
             </Table.Cell>
           </Table.Row>
 
@@ -127,4 +76,19 @@ const CartTable = () => {
   );
 };
 
-export default CartTable;
+const mapStateToProps = ({ cartItems, orderTotal }) => {
+  return {
+    items: cartItems,
+    total: orderTotal
+  }
+};
+
+const mapDispatchToProps = () => {
+  return {
+    onIncrease: (id) => console.log('Increase'),
+    onDecrease: (id) => console.log('Decrease'),
+    onDelete: (id) => console.log('Delete'),
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CartTable);

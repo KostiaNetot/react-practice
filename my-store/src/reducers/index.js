@@ -2,33 +2,58 @@
 const initialState = {
   goods: [],
   loading: true,
-  error: null
+  error: null,
+  cartItems: [],
+  orderTotal: 150
 };
 
-export const GOODS_LOADED = 'GOODS_LOADED';
-export const GOODS_REQUESTED = 'GOODS_REQUESTED';
-export const GOODS_ERROR = 'GOODS_ERROR';
+export const FETCH_GOODS_REQUEST = 'FETCH_GOODS_REQUEST';
+export const FETCH_GOODS_SUCCESS = 'FETCH_GOODS_SUCCESS';
+export const FETCH_GOODS_FAILURE = 'FETCH_GOODS_FAILURE';
+export const ITEM_ADDED_TO_CART = 'ITEM_ADDED_TO_CART';
 
 export const reducer = (state = initialState, action) => {
 
   switch (action.type) {
-    case GOODS_REQUESTED:
+    case FETCH_GOODS_REQUEST:
       return {
+        ...state,
         goods: [],
         loading: true,
         error: null
       };
-    case GOODS_LOADED:
+    case FETCH_GOODS_SUCCESS:
       return {
+        ...state,
         goods: action.payload,
         loading: false,
         error: null
       };
-    case GOODS_ERROR:
+    case FETCH_GOODS_FAILURE:
       return {
+        ...state,
         goods: [],
         loading: false,
         error: action.payload
+      };
+
+    case ITEM_ADDED_TO_CART:
+      const itemId = action.payload;
+      const item = state.goods.find(item => item.id === itemId);
+      const newItem = {
+        id: item.id,
+        title: item.title,
+        count: 1,
+        total: item.price,
+        img: item.img
+        };
+
+      return {
+        ...state,
+        cartItems: [
+          ...state.cartItems,
+          newItem
+        ]
       };
 
     default:

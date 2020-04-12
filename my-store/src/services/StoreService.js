@@ -21,22 +21,25 @@ export default class StoreService {
       title: 'Eggs',
       price: 1,
       description: 'It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.',
-      img: 'https://lh3.googleusercontent.com/proxy/rfudU_FUjkvFhJXqnSY4nzeHUFo4V-VhNDFwGTOk73SFIwvalpqhdI2nMibLoQITzYHxZm6ur20P5vRxJDbuMUEpFNdai0VTDd1lXacv2U_9rb0kflxTQUK16NqgNRY'
+      img: 'https://images.megapixl.com/5703/57031776.jpg'
     },
     {
       id: 4,
-      title: 'Eggs',
-      price: 1,
+      title: 'Beef canned',
+      price: 14,
       description: 'It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.',
-      img: 'https://lh3.googleusercontent.com/proxy/rfudU_FUjkvFhJXqnSY4nzeHUFo4V-VhNDFwGTOk73SFIwvalpqhdI2nMibLoQITzYHxZm6ur20P5vRxJDbuMUEpFNdai0VTDd1lXacv2U_9rb0kflxTQUK16NqgNRY'
+      img: 'https://images-na.ssl-images-amazon.com/images/I/51msFT1t3gL._SX385_.jpg'
     },
   ];
 
   getGoods() {
     return new Promise((res, rej) => {
       setTimeout(() => {
-        // res(this.data)
-        rej(new Error('Errorrrrrrr'))
+        if (Math.random() > 0.75) {
+          rej(new Error('Lazhaa!!!'));
+        } else {
+          res(this.data);
+        }
       }, 700);
     });
   }
