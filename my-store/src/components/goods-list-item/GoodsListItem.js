@@ -2,7 +2,7 @@ import React from 'react';
 import './GoodsLIstItem.css'
 import { Card, Image, Button, Icon } from "semantic-ui-react";
 
-const GoodsListItem = ({ item, onAddToCart }) => {
+const GoodsListItem = ({ item, onAddedToCart }) => {
   return (
     <Card className='item-card' key={item.id}>
       <Image size='small' src={item.img} wrapped ui={false} />
@@ -15,7 +15,7 @@ const GoodsListItem = ({ item, onAddToCart }) => {
         <Card.Meta>
           <span className='date'>Price: <b className='font-black'>{item.price}$</b></span>
         </Card.Meta>
-        <Button onClick={onAddToCart} className='card-btn' animated='vertical'>
+        <Button onClick={onAddedToCart} className='card-btn' animated='vertical'>
           <Button.Content visible>Add to cart</Button.Content>
           <Button.Content hidden>
             <Icon name='shop' />

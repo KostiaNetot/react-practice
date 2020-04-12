@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import './GoodsList.css';
 import { connect } from 'react-redux';
-import { fetchGoods, itemAddToCart } from "../../actions";
+import { fetchGoods, itemAddedToCart } from "../../actions";
 import {Grid, Loader} from "semantic-ui-react";
 
 import { WithStoreService } from "../hoc";
@@ -9,7 +9,7 @@ import GoodsListItem from "../goods-list-item";
 import ErrorIndicator from "../error-indicator";
 
 const GoodsList = (props) => {
-  const { goods, loading, error, onAddToCart } = props;
+  const { goods, loading, error, onAddedToCart } = props;
 
   useEffect(() => {
     props.fetchGoods();
@@ -26,7 +26,7 @@ const GoodsList = (props) => {
     <Grid className='items-wrapper'>
       { goods.map(item => {
         return (
-          <GoodsListItem onAddToCart={() => onAddToCart(item.id)} key={item.id} item={item} />
+          <GoodsListItem onAddedToCart={() => onAddedToCart(item.id)} key={item.id} item={item} />
         )
       }) }
     </Grid>
@@ -44,7 +44,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = ( dispatch, {storeservice} ) => {
   return {
     fetchGoods: fetchGoods(storeservice, dispatch),
-    onAddToCart: (id) => dispatch(itemAddToCart(id))
+    onAddedToCart: (id) => dispatch(itemAddedToCart(id))
   }
 };
 

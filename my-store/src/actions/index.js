@@ -1,4 +1,5 @@
-import { FETCH_GOODS_REQUEST, FETCH_GOODS_SUCCESS, FETCH_GOODS_FAILURE, ITEM_ADDED_TO_CART } from "../reducers";
+import { FETCH_GOODS_REQUEST, FETCH_GOODS_SUCCESS, FETCH_GOODS_FAILURE,
+         ITEM_ADDED_TO_CART, ITEM_REMOVED_FROM_CART, ALL_ITEM_REMOVED_FROM_CART } from "../reducers";
 
 
 const goodsRequested = () => {
@@ -21,9 +22,23 @@ const goodsError = (error) => {
   }
 };
 
-const itemAddToCart = (itemId) => {
+const itemAddedToCart = (itemId) => {
   return {
     type: ITEM_ADDED_TO_CART,
+    payload: itemId
+  }
+};
+
+const itemRemovedFromCart = (itemId) => {
+  return {
+    type: ITEM_REMOVED_FROM_CART,
+    payload: itemId
+  }
+};
+
+const allItemRemovedFromCart = (itemId) => {
+  return {
+    type: ALL_ITEM_REMOVED_FROM_CART,
     payload: itemId
   }
 };
@@ -37,5 +52,7 @@ const fetchGoods = (storeservice, dispatch) => () => {
 
 export {
   fetchGoods,
-  itemAddToCart
+  itemAddedToCart,
+  itemRemovedFromCart,
+  allItemRemovedFromCart
 }

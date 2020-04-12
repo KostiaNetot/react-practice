@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import './CartTable.css'
 import {Table, Image, Header, Button, Icon} from "semantic-ui-react";
+import { itemAddedToCart, itemRemovedFromCart, allItemRemovedFromCart } from "../../actions";
 
 const CartTable = ({ items, total, onIncrease, onDecrease, onDelete }) => {
 
@@ -21,7 +22,6 @@ const CartTable = ({ items, total, onIncrease, onDecrease, onDelete }) => {
         <Table.Body>
           {
             items.map(item => {
-              console.log(item);
               return (
                 <Table.Row key={item.id}>
                   <Table.Cell>
@@ -29,12 +29,11 @@ const CartTable = ({ items, total, onIncrease, onDecrease, onDelete }) => {
                       <Image src={item.img} />
                       <Header.Content>
                         {item.title}
-                        {/*<Header.Subheader>Human Resources</Header.Subheader>*/}
                       </Header.Content>
                     </Header>
                   </Table.Cell>
                   <Table.Cell>
-                    <Header as='h4'><Header.Content>1</Header.Content></Header>
+                    <Header as='h4'><Header.Content>{item.count}</Header.Content></Header>
                   </Table.Cell>
                   <Table.Cell>
                     <Header as='h4'><Header.Content>{item.total}$</Header.Content></Header>
@@ -83,12 +82,10 @@ const mapStateToProps = ({ cartItems, orderTotal }) => {
   }
 };
 
-const mapDispatchToProps = () => {
-  return {
-    onIncrease: (id) => console.log('Increase'),
-    onDecrease: (id) => console.log('Decrease'),
-    onDelete: (id) => console.log('Delete'),
-  }
+const mapDispatchToProps = {
+  onIncrease: itemAddedToCart,
+  onDecrease: itemRemovedFromCart,
+  onDelete: allItemRemovedFromCart,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CartTable);
