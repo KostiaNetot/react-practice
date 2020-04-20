@@ -14,7 +14,7 @@ const fetchSelectedGistsRequest = () => ({
 const fetchSelectedGistsSuccess = (res, lang) => ({
   type: FETCH_SELECTED_GIST_SUCCESS,
   payload: {
-    data: res.data,
+    content: res,
     language: lang
   }
 });
@@ -25,11 +25,10 @@ const fetchSelectedGistsError = (err) => ({
 });
 
 export const fetchSelectedGists = (item) => {
-  console.log( item.raw_url); //string
   return dispatch => {
     dispatch(fetchSelectedGistsRequest());
     axios.get(item.raw_url)
-      .then(res => dispatch(fetchSelectedGistsSuccess(res, item.language)))
+      .then(res => dispatch(fetchSelectedGistsSuccess(res.data, item.language)))
       .catch(err => dispatch(fetchSelectedGistsError(err)))
   }
 };

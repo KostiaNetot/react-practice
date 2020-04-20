@@ -4,8 +4,8 @@ import { FETCH_GISTS_REQUEST, FETCH_GISTS_SUCCESS, FETCH_GISTS_ERROR,
 
 const selectedGistReducer = (state = {
   isLoading: false,
-  content: 'asd',
-  language: 'eng',
+  content: '',
+  language: '',
   error: null
 }, action) => {
   switch (action.type) {
@@ -13,6 +13,8 @@ const selectedGistReducer = (state = {
       return {
         ...state,
         isLoading: true,
+        content: '',
+        language: '',
         error: null
       };
 
@@ -20,7 +22,7 @@ const selectedGistReducer = (state = {
       return {
         ...state,
         isLoading: false,
-        content: action.payload,
+        content: action.payload.content,
         language: action.payload.language
       };
 
@@ -28,8 +30,8 @@ const selectedGistReducer = (state = {
       return {
         ...state,
         isLoading: false,
-        content: 'asd',
-        language: 'eng',
+        content: '',
+        language: '',
         error: action.payload
       };
 
