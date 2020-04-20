@@ -28,7 +28,7 @@ export const fetchSelectedGists = (item) => {
   return dispatch => {
     dispatch(fetchSelectedGistsRequest());
     axios.get(item.raw_url)
-      .then(res => dispatch(fetchSelectedGistsSuccess(res.data, item.language)))
+      .then(res => dispatch(fetchSelectedGistsSuccess(JSON.stringify(res.data), item.language)))
       .catch(err => dispatch(fetchSelectedGistsError(err)))
   }
 };

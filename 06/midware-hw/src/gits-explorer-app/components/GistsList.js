@@ -21,6 +21,7 @@ const GistsList = () => {
               <List.Icon name='github' size='large' verticalAlign='middle' />
               <List.Content>
                 <List.Header onClick={() => dispatch(fetchSelectedGists(item))} as='a'>{item.filename}</List.Header>
+                {/*<List.Header onClick={() => console.log(item.raw_url)} as='a'>{item.filename}</List.Header>*/}
                 <List.Description>{item.type}</List.Description>
               </List.Content>
             </List.Item>
