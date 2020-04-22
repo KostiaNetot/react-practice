@@ -4,6 +4,7 @@ import { FETCH_GISTS_REQUEST, FETCH_GISTS_SUCCESS, FETCH_GISTS_ERROR,
 
 const selectedGistReducer = (state = {
   isLoading: false,
+  title: '',
   content: '',
   language: '',
   error: null
@@ -23,7 +24,8 @@ const selectedGistReducer = (state = {
         ...state,
         isLoading: false,
         content: action.payload.content,
-        language: action.payload.language
+        language: action.payload.language,
+        title: action.payload.title
       };
 
     case FETCH_SELECTED_GIST_ERROR:

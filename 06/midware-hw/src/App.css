@@ -6,8 +6,18 @@
   text-align: left;
 }
 
+.App .main-header {
+  padding-top: 16px;
+  padding-bottom: 26px;
+}
+
 #root .gist-header {
   padding-top: 30px;
+}
+
+#root .checked-gist-header {
+  text-align: center;
+  color: darkslategrey;
 }
 
 #root .gist-loader {
@@ -15,6 +25,16 @@
   left: 50px;
 }
 
+#root .syntax-hltr {
+  background-color: lightsteelblue !important;
+}
 
+#root .gists-item {
+  background-color: lightgoldenrodyellow;
+  display: flex;
+  margin-bottom: 4px;
+}
 
-
+#root .gists-item  a {
+  cursor: pointer;
+}

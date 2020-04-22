@@ -1,34 +1,43 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { List, Loader } from "semantic-ui-react";
-import { fetchGists, fetchSelectedGists } from "../redux/actions";
+import { fetchGists } from "../redux/actions";
+import InfiniteScroll from 'react-infinite-scroller';
+import GistsListItem from "./GistsListItem";
+
+const GISTS_PER_PAGE = 15;
 
 const GistsList = () => {
   const dispatch = useDispatch();
   const { items, isLoading } = useSelector(state => state.gists);
+
+  const [displayedGists, setDisplayedGists] = useState(GISTS_PER_PAGE);
 
   useEffect(() => {
     dispatch(fetchGists());
   }, []);
 
   return (
-    <List divided relaxed>
-      { isLoading && <Loader active>Loading</Loader> }
-      {
-        items.map((item, i) => {
-          return(
-            <List.Item key={i}>
-              <List.Icon name='github' size='large' verticalAlign='middle' />
-              <List.Content>
-                <List.Header onClick={() => dispatch(fetchSelectedGists(item))} as='a'>{item.filename}</List.Header>
-                {/*<List.Header onClick={() => console.log(item.raw_url)} as='a'>{item.filename}</List.Header>*/}
-                <List.Description>{item.type}</List.Description>
-              </List.Content>
-            </List.Item>
-          )
-        })
-      }
-    </List>
+    <React.Fragment>
+      <List divided relaxed>
+        { isLoading && <Loader active>Loading</Loader> }
+        <InfiniteScroll
+          initialLoad={false}
+          pageStart={1}
+          loadMore={page => setDisplayedGists(page * GISTS_PER_PAGE)}
+          hasMore={items.length > displayedGists}
+          // loader={<div className="loader" key={0}>Loading ...</div>}
+        >
+        {
+          items.slice(0, displayedGists).map((item, i) => {
+            return(
+              <GistsListItem item={item} key={i} />
+            )
+          })
+        }
+        </InfiniteScroll>
+      </List>
+    </React.Fragment>
   );
 };
 

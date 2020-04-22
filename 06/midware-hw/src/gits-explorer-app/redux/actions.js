@@ -11,11 +11,12 @@ const fetchSelectedGistsRequest = () => ({
   type: FETCH_SELECTED_GIST_REQUEST
 });
 
-const fetchSelectedGistsSuccess = (res, lang) => ({
+const fetchSelectedGistsSuccess = (res, lang, title) => ({
   type: FETCH_SELECTED_GIST_SUCCESS,
   payload: {
     content: res,
-    language: lang
+    language: lang,
+    title: title
   }
 });
 
@@ -28,7 +29,13 @@ export const fetchSelectedGists = (item) => {
   return dispatch => {
     dispatch(fetchSelectedGistsRequest());
     axios.get(item.raw_url)
-      .then(res => dispatch(fetchSelectedGistsSuccess(JSON.stringify(res.data), item.language)))
+      .then(res => {
+        console.log(typeof res.data);
+        if (typeof res.data !== 'string') {
+          res.data = JSON.stringify(res.data);
+        }
+        dispatch(fetchSelectedGistsSuccess(res.data, item.language, item.filename));
+      })
       .catch(err => dispatch(fetchSelectedGistsError(err)))
   }
 };
@@ -40,7 +47,7 @@ const fetchGistsRequest = () => ({
 const findFilesObject = (data) => {
   let filteredData = [];
   data.map(item => {
-    return Object.values(item.files).map(file => {
+    return Object.values(item.files).forEach(file => {
       filteredData.push(file)
     })
   });

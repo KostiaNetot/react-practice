@@ -4,7 +4,7 @@ import { Header } from "semantic-ui-react";
 const HeaderApp = () => {
   return (
     <div>
-      <Header textAlign='center' as='h1'>Gists Explorer</Header>
+      <Header className='main-header' textAlign='center' as='h1'>Gists Explorer</Header>
     </div>
   );
 };
