@@ -1,13 +1,14 @@
 const express = require('express');
 require('express-async-errors');
 require('./db');
+const User = require('./models/user');
+const Post = require('./models/post');
 const cors = require('cors');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { ObjectId } = require('mongodb');
 const { errorHandler, requireAuth } = require('./middlewares');
 const bodyParser = require('body-parser');
-const getDb = require('./db');
 const PORT = 5000;
 
 const app = express();
@@ -21,48 +22,50 @@ app.use(cors());
 /*--------------------------- USERS QUERIES -------------------------------*/
 
 app.post('/signup', async (req, res) => {
-  const newUser = req.body;
-  const db = await getDb();
-  const user = await db.collection('users').findOne({ email: newUser.email.toLowerCase() });
-  throw new Error('new Error');
-  if (user) {
-    return res.sendHTTPError(400, 'Users already exist');
+  const newUser = new User(req.body);
+  try {
+    await newUser.save();
+  } catch (e) {
+    if (e.code === 11000) {
+      res.sendHTTPError(400, 'User already exist');
+    }
+    throw e;
   }
-  newUser.email = newUser.email.toLowerCase();
-  newUser.password = bcrypt.hashSync(newUser.password, 10);
-  await db.collection('users').insertOne(newUser);
-  res.send({ message: "success" });
+  res.send(newUser);
 });
 
 app.post('/auth', async (req, res) => {
   const { email, password } = req.body;
-  const db = await getDb();
-  const user = await db.collection('users').findOne({ email: email.toLowerCase() });
-  if (!user) {
-    res.sendHTTPError(401, 'User does not exist');
-  }
-  bcrypt.compare(password, user.password, (err, result) => {
-    if (result) {
-      delete user.password;
-      const authToken = jwt.sign({ _id: user._id }, 'secret', { expiresIn: '20s' });
-      res.send({ user, authToken });
-    } else {
-      res.sendHTTPError(401, 'Password is incorrect')
-    }
-  });
+  const user = await User.findOne({ email }).select('+password');
+  const authToken = await user.signIn(password);
+  res.send({ authToken, user });
 });
 
-app.get('/api/users', async (req, res) => { //requireAuth
-  const db = await getDb();
-  const result = await db.collection('users').find({}).toArray();
+app.get('/api/users', requireAuth, async (req, res) => {
+  const result = await User.find({});
   res.send(result);
 });
 
 app.get('/api/users/me', requireAuth, async (req, res) => {
-  const db = await getDb();
-  const user = await db.collection('users').findOne({ _id: ObjectId(req.userId) }, { fields: { password: false } });
-  res.json(user)
+  const user = await User.findById(req.userId);
+  res.json(user);
 });
+/*-----------------------------------------------------------------*/
+
+
+/*--------------------------- POSTS QUERIES -------------------------------*/
+app.post('/api/posts', requireAuth, async (req, res) => {
+  const newPost = req.body;
+  newPost.author = req.userId;
+  const post = await new Post(newPost);
+  res.send(post);
+});
+
+app.get('/api/posts', requireAuth, async (req, res) => {
+  const posts = await Post.find({});
+  res.json(posts);
+});
+
 
 /*-----------------------------------------------------------------*/
 
